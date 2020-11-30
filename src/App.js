@@ -1,4 +1,5 @@
 import "./App.css";
+import Blog from "./Blog/blog";
 import { Provider } from "react-redux";
 import { applyMiddleware, createStore } from "redux";
 import blogReducer from "./redux/reducer/blogReducer";
@@ -12,7 +13,9 @@ const store = createStore(blogReducer, applyMiddleware(...mw));
 function App() {
     return (
         <Provider store={store}>
-            <div className="app">redux</div>
+            <div className="app">
+                <Blog />
+            </div>
         </Provider>
     );
 }
