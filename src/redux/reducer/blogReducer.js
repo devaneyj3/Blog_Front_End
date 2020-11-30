@@ -8,7 +8,7 @@ const blogReducer = (state = initial_state, action) => {
     switch (action.type) {
         case GET_POST:
             return {
-                ...state,
+                posts: action.payload,
             };
         case POST_ENTRY:
             return {

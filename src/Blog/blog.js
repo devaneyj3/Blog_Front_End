@@ -1,45 +1,31 @@
-import React, { useState } from "react";
-import moment from "moment";
-import { postToDB } from "../redux/action/post_actions";
+import React from "react";
 import { connect } from "react-redux";
+import BlogForm from "../components/BlogForm/BlogForm";
 
 import "./blog.scss";
 
-const Blog = ({ postToDB }) => {
-    const [data, setUser] = useState({
-        title: "",
-        body: "",
-        created_at: moment().format("llll"),
-    });
-
-    const submit = async (e) => {
-        e.preventDefault();
-        postToDB(data);
-    };
-
-    const change = (e) => {
-        setUser({ ...data, [e.target.name]: e.target.value });
-    };
+const Blog = ({ posts }) => {
     return (
         <section className="blog">
-            <form className="blog-form" onSubmit={submit}>
-                <input
-                    type="text"
-                    name="title"
-                    value={data.title}
-                    placeholder="Enter a title"
-                    onChange={change}
-                />
-                <textarea
-                    name="body"
-                    placeholder="Enter your content"
-                    value={data.body}
-                    onChange={change}
-                ></textarea>
-                <input type="submit" />
-            </form>
+            <BlogForm />
+            {posts.length > 0
+                ? posts.map((post) => {
+                      return (
+                          <>
+                              <h1>{post.title}</h1>
+                              <p>{post.body}</p>
+                          </>
+                      );
+                  })
+                : null}
         </section>
     );
 };
 
-export default connect(null, { postToDB })(Blog);
+const mapStateToProps = (state) => {
+    return {
+        posts: state.posts,
+    };
+};
+
+export default connect(mapStateToProps, {})(Blog);
