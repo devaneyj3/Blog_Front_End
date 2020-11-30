@@ -1,4 +1,4 @@
-import { GET_POST } from "../action/post_actions";
+import { GET_POST, POST_ENTRY } from "../action/post_actions";
 
 const initial_state = {
     posts: [],
@@ -9,6 +9,10 @@ const blogReducer = (state = initial_state, action) => {
         case GET_POST:
             return {
                 ...state,
+            };
+        case POST_ENTRY:
+            return {
+                posts: action.payload,
             };
         default:
             return state;

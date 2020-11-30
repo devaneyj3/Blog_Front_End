@@ -1,18 +1,20 @@
 import React, { useState } from "react";
 import moment from "moment";
+import { postToDB } from "../redux/action/post_actions";
+import { connect } from "react-redux";
 
 import "./blog.scss";
 
-const Blog = () => {
+const Blog = ({ postToDB }) => {
     const [data, setUser] = useState({
         title: "",
         body: "",
         created_at: moment().format("llll"),
     });
 
-    const submit = (e) => {
+    const submit = async (e) => {
         e.preventDefault();
-        console.log(data);
+        postToDB(data);
     };
 
     const change = (e) => {
@@ -40,4 +42,4 @@ const Blog = () => {
     );
 };
 
-export default Blog;
+export default connect(null, { postToDB })(Blog);
